@@ -1,0 +1,18 @@
+import { CreateBooksCollection } from "./book.service.js";
+export async function createCollection(req, res, next) {
+  try {
+    const create = await CreateBooksCollection();
+    res
+      .status(201)
+      .json({ message: "Collection created successfully", success: true });
+  } catch (error) {
+    if (error.code == 48) {
+      return res
+        .status(409)
+        .json({ message: "collection already exist", success: false });
+    }
+    res
+      .status(error.cause || 500)
+      .json({ message: error.message, success: false });
+  }
+}
