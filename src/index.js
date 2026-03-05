@@ -10,6 +10,8 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 connectDB();
 app.use("/collection", collectionRoute);
+app.use("/books", bookRoute);
+app.use("/logs", logRoute);
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
