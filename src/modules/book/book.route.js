@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { createCollection, CreateIndexController } from "./book.controller.js";
+import { InsertOneBookController } from "./book.controller.js";
 const router = Router();
-router.post("/", createCollection);
-router.post("/index", CreateIndexController);
+
+router.post("/", InsertOneBookController);
 export default router;

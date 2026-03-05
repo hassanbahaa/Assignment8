@@ -1,30 +1,14 @@
-import { CreateBooksCollection, CreateIndex } from "./book.service.js";
+import { InsertOneBook } from "./book.service.js";
 
-// Q 1
-export async function createCollection(req, res, next) {
+export async function InsertOneBookController(req, res) {
   try {
-    const create = await CreateBooksCollection();
-    res
-      .status(201)
-      .json({ message: "Collection created successfully", success: true });
-  } catch (error) {
-    if (error.code == 48) {
-      return res
-        .status(409)
-        .json({ message: "collection already exist", success: false });
-    }
-    res
-      .status(error.cause || 500)
-      .json({ message: error.message, success: false });
-  }
-}
-
-export async function CreateIndexController(req, res, next) {
-  try {
-    const index = await CreateIndex();
-    res
-      .status(201)
-      .json({ message: "Index created successfully", success: true });
+    const book = req.body;
+    const insert = await InsertOneBook(book);
+    res.status(201).json({
+      message: "Book inserted successfully",
+      success: true,
+      data: { bookId: insert.insertedId },
+    });
   } catch (error) {
     res
       .status(error.cause || 500)
