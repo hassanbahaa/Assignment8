@@ -19,3 +19,10 @@ export const CreateBooksCollection = async () => {
   if (!book) throw new Error("Error creating the collection", { cause: 500 });
   return book;
 };
+
+// createIndex tor title
+export const CreateIndex = async () => {
+  const index = await Book.createIndex({ title: 1 });
+  if (!index) throw new Error("Error creating the index", { cause: 500 });
+  return index;
+};
