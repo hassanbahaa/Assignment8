@@ -9,8 +9,12 @@ import {
   findBookswithInt,
   findBooksNotInGenres,
   deleteBooksBeforeYear,
+  booksAggregateOne,
+  booksAggregateTwo,
+  booksAggregateThree,
+  booksAggregateFour,
 } from "./book.service.js";
-//q 5
+
 export async function InsertOneBookController(req, res) {
   try {
     const book = req.body;
@@ -56,7 +60,6 @@ export async function InsertManyBooksController(req, res) {
   }
 }
 
-//Q-8
 export async function UpdateBookController(req, res) {
   const title = req.params.title;
   const update = req.body;
@@ -80,7 +83,6 @@ export async function UpdateBookController(req, res) {
   }
 }
 
-// Q-9
 export async function getBookController(req, res) {
   const { title } = req.query;
   try {
@@ -114,7 +116,6 @@ export async function getBooksByYearController(req, res) {
   }
 }
 
-// Q11
 export async function getBooksByGenreController(req, res) {
   const { genre } = req.query;
   try {
@@ -131,7 +132,6 @@ export async function getBooksByGenreController(req, res) {
   }
 }
 
-// Q12 Skip the first two books, limit the results to the next three, sorted by year in descending order
 export async function skipLimitController(req, res) {
   try {
     const books = await getBooksWithPagination();
@@ -147,7 +147,6 @@ export async function skipLimitController(req, res) {
   }
 }
 
-//Q13 Find books where the year field stored as an integer
 export async function findBookswithIntController(req, res) {
   try {
     const books = await findBookswithInt();
@@ -163,7 +162,6 @@ export async function findBookswithIntController(req, res) {
   }
 }
 
-// Q14 Find all books where the genres field does not include any of the genres "Horror" or "Science Fiction"
 export async function findBooksNotInGenresController(req, res) {
   try {
     const books = await findBooksNotInGenres();
@@ -179,7 +177,6 @@ export async function findBooksNotInGenresController(req, res) {
   }
 }
 
-// Q15 Delete all books published before 2000. (0.5 Grade) • DELETE: GET /books/before-year?year=2000
 export async function deleteBooksBeforeYearController(req, res) {
   const { year } = req.query;
   try {
@@ -188,6 +185,66 @@ export async function deleteBooksBeforeYearController(req, res) {
       message: "Books deleted successfully",
       success: true,
       data: deletedBooks,
+    });
+  } catch (error) {
+    res
+      .status(error.cause || 500)
+      .json({ message: error.message, success: false });
+  }
+}
+
+export async function booksAggregateOneController(req, res) {
+  try {
+    const books = await booksAggregateOne();
+    res.status(200).json({
+      message: "Books found successfully",
+      success: true,
+      data: books,
+    });
+  } catch (error) {
+    res
+      .status(error.cause || 500)
+      .json({ message: error.message, success: false });
+  }
+}
+
+export async function booksAggregateTwoController(req, res) {
+  try {
+    const books = await booksAggregateTwo();
+    res.status(200).json({
+      message: "Books found successfully",
+      success: true,
+      data: books,
+    });
+  } catch (error) {
+    res
+      .status(error.cause || 500)
+      .json({ message: error.message, success: false });
+  }
+}
+
+export async function booksAggregateThreeController(req, res) {
+  try {
+    const books = await booksAggregateThree();
+    res.status(200).json({
+      message: "Books found successfully",
+      success: true,
+      data: books,
+    });
+  } catch (error) {
+    res
+      .status(error.cause || 500)
+      .json({ message: error.message, success: false });
+  }
+}
+
+export async function booksAggregateFourController(req, res) {
+  try {
+    const books = await booksAggregateFour();
+    res.status(200).json({
+      message: "Books found successfully",
+      success: true,
+      data: books,
     });
   } catch (error) {
     res

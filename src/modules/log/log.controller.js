@@ -1,5 +1,5 @@
 import { InsertLog } from "./log.service.js";
-// q-7
+
 export async function InsertLogController(req, res) {
   try {
     const log = req.body;

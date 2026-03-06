@@ -27,14 +27,12 @@ export const CreateBooksCollection = async () => {
   return book;
 };
 
-// createIndex tor title
 export const CreateIndex = async () => {
   const index = await Book.createIndex({ title: 1 });
   if (!index) throw new Error("Error creating the index", { cause: 500 });
   return index;
 };
 export const CreateLogsCollection = async () => {
-  // capped collection
   const log = await db.createCollection("logs", {
     capped: true,
     size: 1024 * 1024,
