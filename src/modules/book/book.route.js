@@ -9,6 +9,7 @@ import {
   skipLimitController,
   findBookswithIntController,
   findBooksNotInGenresController,
+  deleteBooksBeforeYearController,
 } from "./book.controller.js";
 const router = Router();
 
@@ -19,6 +20,7 @@ router.get("/genre", getBooksByGenreController);
 router.get("/skip-limit", skipLimitController);
 router.get("/year-integer", findBookswithIntController);
 router.get("/exclude-genres", findBooksNotInGenresController);
+router.delete("/before-year", deleteBooksBeforeYearController);
 router.post("/batch", InsertManyBooksController);
 router.patch("/:title", UpdateBookController);
 export default router;
