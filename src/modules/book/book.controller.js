@@ -8,6 +8,7 @@ import {
   getBooksWithPagination,
   findBookswithInt,
   findBooksNotInGenres,
+  deleteBooksBeforeYear,
 } from "./book.service.js";
 //q 5
 export async function InsertOneBookController(req, res) {
@@ -170,6 +171,23 @@ export async function findBooksNotInGenresController(req, res) {
       message: "Books found successfully",
       success: true,
       data: books,
+    });
+  } catch (error) {
+    res
+      .status(error.cause || 500)
+      .json({ message: error.message, success: false });
+  }
+}
+
+// Q15 Delete all books published before 2000. (0.5 Grade) • DELETE: GET /books/before-year?year=2000
+export async function deleteBooksBeforeYearController(req, res) {
+  const { year } = req.query;
+  try {
+    const deletedBooks = await deleteBooksBeforeYear(parseInt(year));
+    res.status(200).json({
+      message: "Books deleted successfully",
+      success: true,
+      data: deletedBooks,
     });
   } catch (error) {
     res

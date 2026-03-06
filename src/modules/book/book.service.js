@@ -73,3 +73,11 @@ export const findBooksNotInGenres = async () => {
     });
   return books;
 };
+
+// Q15 Delete all books published before 2000. (0.5 Grade) • DELETE: GET /books/before-year?year=2000
+export const deleteBooksBeforeYear = async (year) => {
+  const deleteResult = await Book.deleteMany({ year: { $lt: year } });
+  if (deleteResult.deletedCount === 0)
+    throw new Error("No books published before this year", { cause: 404 });
+  return deleteResult;
+};
